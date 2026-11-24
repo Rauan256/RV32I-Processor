@@ -1,0 +1,66 @@
+
+software/compiler_check.o:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <add>:
+   0:	fe010113          	addi	sp,sp,-32
+   4:	00112e23          	sw	ra,28(sp)
+   8:	00812c23          	sw	s0,24(sp)
+   c:	02010413          	addi	s0,sp,32
+  10:	fea42623          	sw	a0,-20(s0)
+  14:	feb42423          	sw	a1,-24(s0)
+  18:	fec42703          	lw	a4,-20(s0)
+  1c:	fe842783          	lw	a5,-24(s0)
+  20:	00f707b3          	add	a5,a4,a5
+  24:	00078513          	addi	a0,a5,0
+  28:	01c12083          	lw	ra,28(sp)
+  2c:	01812403          	lw	s0,24(sp)
+  30:	02010113          	addi	sp,sp,32
+  34:	00008067          	jalr	zero,0(ra)
+
+00000038 <main>:
+  38:	fd010113          	addi	sp,sp,-48
+  3c:	02112623          	sw	ra,44(sp)
+  40:	02812423          	sw	s0,40(sp)
+  44:	03010413          	addi	s0,sp,48
+  48:	000007b7          	lui	a5,0x0
+  4c:	00078793          	addi	a5,a5,0 # 0 <add>
+  50:	0007a603          	lw	a2,0(a5)
+  54:	0047a683          	lw	a3,4(a5)
+  58:	0087a703          	lw	a4,8(a5)
+  5c:	00c7a783          	lw	a5,12(a5)
+  60:	fcc42c23          	sw	a2,-40(s0)
+  64:	fcd42e23          	sw	a3,-36(s0)
+  68:	fee42023          	sw	a4,-32(s0)
+  6c:	fef42223          	sw	a5,-28(s0)
+  70:	fe042623          	sw	zero,-20(s0)
+  74:	fe042423          	sw	zero,-24(s0)
+  78:	0380006f          	jal	zero,b0 <.L4>
+
+0000007c <.L5>:
+  7c:	fe842703          	lw	a4,-24(s0)
+  80:	fd840793          	addi	a5,s0,-40
+  84:	00271713          	slli	a4,a4,0x2
+  88:	00f707b3          	add	a5,a4,a5
+  8c:	0007a783          	lw	a5,0(a5)
+  90:	00078593          	addi	a1,a5,0
+  94:	fec42503          	lw	a0,-20(s0)
+  98:	00000097          	auipc	ra,0x0
+  9c:	000080e7          	jalr	ra,0(ra) # 98 <.L5+0x1c>
+  a0:	fea42623          	sw	a0,-20(s0)
+  a4:	fe842783          	lw	a5,-24(s0)
+  a8:	00178793          	addi	a5,a5,1
+  ac:	fef42423          	sw	a5,-24(s0)
+
+000000b0 <.L4>:
+  b0:	fe842703          	lw	a4,-24(s0)
+  b4:	00300793          	addi	a5,zero,3
+  b8:	fce7d2e3          	bge	a5,a4,7c <.L5>
+  bc:	fec42783          	lw	a5,-20(s0)
+  c0:	00078513          	addi	a0,a5,0
+  c4:	02c12083          	lw	ra,44(sp)
+  c8:	02812403          	lw	s0,40(sp)
+  cc:	03010113          	addi	sp,sp,48
+  d0:	00008067          	jalr	zero,0(ra)
