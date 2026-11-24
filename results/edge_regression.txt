@@ -1,0 +1,8 @@
+Reference model: PASS steps=143 signature=a11a0003
+Loading memory image: tests/edge_cases.hex
+PASS: signature=a11a0003 halt_code=2 cycles=893 pc=80000208
+- sim/tb_rv32i.sv:67: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 9ns; walltime 0.054 s; speed 183.430 ns/s
+- Verilator: cpu 0.049 s on 1 threads; alloced 89 MB
+Supplemental RTL edge-case regression PASS
