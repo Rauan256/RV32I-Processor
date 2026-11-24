@@ -1,0 +1,3 @@
+Found 39 final self-checking ELFs
+PASS: rv32i/I/I-addi-00.elf ACT4 PASS cycles=19747 pc=80012214
+Summary: PASS=1, FAIL=0, TIMEOUT=0, ERROR=0
