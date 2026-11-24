@@ -1,0 +1,28 @@
+Generated directed tests; all 40 required mnemonics are present across the manifest.
+all40_ebreak: PASS steps=114 halt=2 signature=0xa11a0001
+ecall: PASS steps=5 halt=1 signature=0xa11a0002
+make: Entering directory '/mnt/c/Users/rauan/Downloads/rv32i_fall_ready/rv32i_fall_ready/obj_dir'
+make: Nothing to be done for 'default'.
+make: Leaving directory '/mnt/c/Users/rauan/Downloads/rv32i_fall_ready/rv32i_fall_ready/obj_dir'
+- V e r i l a t i o n   R e p o r t: Verilator 5.032 2025-01-01 rev (Debian 5.032-1)
+- Verilator: Built from 0.000 MB sources in 0 modules, into 0.000 MB in 0 C++ files needing 0.000 MB
+- Verilator: Walltime 0.137 s (elab=0.000, cvt=0.000, bld=0.062); cpu 0.022 s on 1 threads; alloced 7.004 MB
+Loading memory image: tests/all40_ebreak.hex
+PASS: signature=a11a0001 halt_code=2 cycles=711 pc=800001e4
+- sim/tb_rv32i.sv:65: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 7ns; walltime 0.010 s; speed 1.071 us/s
+- Verilator: cpu 0.007 s on 1 threads; alloced 89 MB
+Loading memory image: tests/ecall.hex
+PASS: signature=a11a0002 halt_code=1 cycles=31 pc=80000010
+- sim/tb_rv32i.sv:65: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 350ps; walltime 0.007 s; speed 62.924 ns/s
+- Verilator: cpu 0.006 s on 1 threads; alloced 89 MB
++ /usr/bin/python3 tests/gen_tests.py
++ /usr/bin/python3 tools/ref_model.py
++ verilator --binary --timing -Wall -Wno-fatal --top-module tb_rv32i rtl/rv32i_regfile.sv rtl/rv32i_core.sv sim/rv32i_sim_memory.sv sim/rv32i_sim_top.sv sim/tb_rv32i.sv -o Vtb_rv32i
++ /mnt/c/Users/rauan/Downloads/rv32i_fall_ready/rv32i_fall_ready/obj_dir/Vtb_rv32i +MEMFILE=tests/all40_ebreak.hex +EXPECT=a11a0001 +SIGOFF=00000400 +HALT=2
++ /mnt/c/Users/rauan/Downloads/rv32i_fall_ready/rv32i_fall_ready/obj_dir/Vtb_rv32i +MEMFILE=tests/ecall.hex +EXPECT=a11a0002 +SIGOFF=00000400 +HALT=1
+
+RTL regression PASS
