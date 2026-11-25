@@ -1,43 +1,34 @@
-# Verification status
+# Project status
 
-## Implemented in this package
+Verified baseline: 24 November 2026 — `v0.2-fall-verified` (`5941c4d`).
 
-- Multicycle, in-order RV32I core written from scratch in SystemVerilog.
-- 32 architectural registers (`x0` hardwired to zero) and 32-bit PC.
-- Reset PC `0x8000_0000`.
-- Decode/execute support for all 40 RV32I base mnemonics in the project manifest.
-- Loads/stores: LB, LH, LW, LBU, LHU, SB, SH, SW.
-- All RV32I ALU-immediate, ALU-register, branch, jump, LUI/AUIPC instructions.
-- `FENCE` as a deterministic no-op for this single-hart uncached baseline.
-- Project-defined deterministic `ECALL` / `EBREAK` halt behavior.
-- Request/ready memory interface intended to tolerate synchronous-memory latency.
-- 64 KiB simulation memory and self-checking testbench.
-- Directed generated programs plus an independent Python RV32I reference model.
-- Early Vivado out-of-context 25 MHz timing/utilization script.
+Overall status: **On track.** Our Fall simulation milestone (M4) is met. The early FPGA timing check awaits authorized Vivado access.
 
-## Validation completed in the creation environment
+## Verified items
 
-The generated programs pass the independent Python reference model:
+| Item | Result | Evidence |
+| --- | --- | --- |
+| Python reference model and directed instruction coverage | PASS — 40 base mnemonics covered by the directed manifest | [`verilator_regression.txt`](results/verilator_regression.txt), [`manifest.json`](tests/manifest.json) |
+| RTL `all40_ebreak` | PASS — `0xA11A0001`, 711 cycles | [`verilator_regression.txt`](results/verilator_regression.txt) |
+| RTL `ecall` | PASS — `0xA11A0002`, 31 cycles | [`verilator_regression.txt`](results/verilator_regression.txt) |
+| RTL `edge_cases` | PASS — `0xA11A0003`, 893 cycles | [`edge_regression.txt`](results/edge_regression.txt) |
+| ACT4 selected RV32I suite | PASS — 39/39, zero failures, timeouts or errors | [`act4_regression.txt`](results/act4_regression.txt), [`act4_version.txt`](results/act4_version.txt) |
+| GCC 14.2 compiler inspection (RR-2) | PASS — RV32I/ILP32, 16-byte stack alignment | [`compiler_attributes.txt`](results/compiler_attributes.txt), [`compiler_disassembly.txt`](results/compiler_disassembly.txt) |
+| Yosys 0.52 structural schematics | Generated — core and register file | [`rv32i_schematic.svg`](results/rv32i_schematic.svg), [`register_file.svg`](results/register_file.svg) |
+| Version-controlled simulation baseline | Tagged | [`v0.2-fall-verified`](https://github.com/Rauan256/RV32I-Processor/tree/v0.2-fall-verified) |
 
-- `all40_ebreak` -> signature `0xA11A0001`, EBREAK halt.
-- `ecall` -> signature `0xA11A0002`, ECALL halt.
-- Manifest coverage contains all 40 required RV32I mnemonics.
+We ran the directed tests with 64 KiB simulation memory and the ACT4 tests with a separate 4 MiB simulation memory configuration. The ACT4 results are limited to the selected suite; ECALL and EBREAK are covered by our directed regression.
 
-## Validation that still requires your EDA installation
+## Planned / not yet run
 
-The creation environment does not contain Verilator, Icarus Verilog, or Vivado. Therefore the following artifacts cannot truthfully be marked PASS yet:
+| Item | Status | Milestone |
+| --- | --- | --- |
+| Early XC7A35T synthesis, 25 MHz timing and preliminary LUT utilization (RR-3) | Not yet run; authorized Vivado access pending. [`run_ooc.tcl`](vivado/run_ooc.tcl) is available. | Originally Fall W13; outstanding ahead of M5 |
+| Basys 3 top level and XDC constraints | Planned | M5 — Spring W3 |
+| Synthesizable BRAM wrapper and memory initialization | Planned | M5 — Spring W3 |
+| UART TX and hardware MMIO at `0x10000000` | Planned | M5 — Spring W3 |
+| Bitstream, clock/reset/LED/UART smoke tests | Not yet run | M5 — Spring W3 |
+| Linked C program executing on FPGA with UART output | Not yet run; compiler inspection completed separately | M6 — Spring W6 |
+| Final FPGA timing, utilization, full system regression and demo release | Not yet run | M8 — Spring W13 |
 
-1. SystemVerilog compile/lint log.
-2. RTL regression console log/waveform.
-3. Vivado post-route 25 MHz timing report.
-4. Vivado utilization report.
-
-Run `python scripts/run_verilator.py` and then `vivado -mode batch -source vivado/run_ooc.tcl` on a machine with those tools. If either reports an error, fix it before presenting the RTL as verified.
-
-## Not Fall baseline / planned for Spring
-
-- Physical Basys 3 clocking/top-level constraints.
-- Synthesizable on-board BRAM wrapper and memory image preload flow.
-- Physical UART TX module and MMIO decode on the board.
-- Bitstream generation and hardware smoke test.
-- Compiled C program executing on the physical FPGA.
+Clean-clone end-to-end reproduction and formal architectural certification are not established by the current simulation results.
