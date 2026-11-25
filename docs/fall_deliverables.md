@@ -1,33 +1,35 @@
-# Fall W14 Deliverables / Evidence Checklist
+# Fall 2026 deliverables
 
-The approved proposal sets Fall W14 as the **complete RV32I simulation baseline**, not the final physical FPGA demo.
+We completed the Fall RV32I simulation milestone (M4). Our verified baseline is [`v0.2-fall-verified`](https://github.com/Rauan256/RV32I-Processor/tree/v0.2-fall-verified), commit `5941c4d`, verified on 24 November 2026. The early FPGA timing check (RR-3) awaits authorized Vivado access.
 
-Collect these artifacts as you work:
+## Fall verification and evidence
 
-- [ ] Architecture/datapath diagram and FSM diagram frozen
-- [ ] `rv32i_core.sv` + modular RTL committed/tagged
-- [ ] 32-register file with x0 behavior verified
-- [ ] all 40 RV32I base mnemonics represented in the frozen test manifest
-- [ ] directed test logs for arithmetic/immediate/shift families
-- [ ] directed test logs for all six branches
-- [ ] directed tests for JAL/JALR and upper-immediate instructions
-- [ ] byte/halfword/word load/store tests
-- [ ] explicit FENCE/ECALL/EBREAK project behavior documented
-- [ ] reset test showing first fetch at `0x80000000`
-- [ ] testbench log showing pass signatures
-- [ ] waveform screenshots for at least fetch/decode/execute, branch, and load/store
-- [ ] early Vivado synthesis report
-- [ ] 25 MHz timing feasibility evidence (WNS target >= 0)
-- [ ] estimated LUT/FF use recorded
-- [ ] baseline-vs-actual schedule table for Design Progress report
-- [ ] Git commit/tag IDs linked to claims in the progress report
+- [x] Processor architecture and FSM documented in the [architecture overview](START_HERE.md) and design progress report.
+- [x] [Core RTL](../rtl/rv32i_core.sv) and [register file](../rtl/rv32i_regfile.sv) committed and tagged.
+- [x] Register file and x0 behavior verified in directed regression.
+- [x] All 40 RV32I base mnemonics covered by the [directed test manifest](../tests/manifest.json).
+- [x] Arithmetic, immediate and shift operations tested.
+- [x] All six conditional branch instructions tested.
+- [x] JAL/JALR and upper-immediate instructions tested.
+- [x] Byte, halfword and word load/store operations tested.
+- [x] FENCE, ECALL and EBREAK behavior documented and tested.
+- [x] Reset and first fetch at `0x80000000` documented in the report waveform.
+- [x] Three directed RTL programs passed with expected signatures: [standard regression](../results/verilator_regression.txt) and [edge-case regression](../results/edge_regression.txt).
+- [x] GTKWave screenshots of reset, fetch and instruction execution included in the design progress report.
+- [x] Yosys structural schematics generated for the [core](../results/rv32i_schematic.svg) and [register file](../results/register_file.svg).
+- [x] All 39 selected official ACT4 programs passed, with zero failures, timeouts or errors: [ACT4 regression](../results/act4_regression.txt).
+- [x] GCC RV32I/ILP32 compiler inspection completed, including 16-byte stack alignment: [attributes](../results/compiler_attributes.txt) and [disassembly](../results/compiler_disassembly.txt).
+- [x] Baseline and updated schedule included in the design progress report.
+- [x] Git commit and tag recorded in the design progress report.
 
-## Do not claim yet unless actually completed
+## Planned for Spring 2027
 
-These are mainly Spring deliverables in the proposal:
+The RR-3 checks were originally scheduled for Fall W13 and remain outstanding. The remaining hardware milestones are scheduled for Spring.
 
-- physical Basys 3 BRAM/UART smoke test
-- final hardware UART 1000-character test
-- full C program running on physical FPGA
-- final 25/50 MHz timing/resource closure
-- final physical demonstration
+- [ ] RR-3: early Vivado synthesis on XC7A35T using [run_ooc.tcl](../vivado/run_ooc.tcl); awaits authorized access.
+- [ ] RR-3: 25 MHz timing feasibility (WNS >= 0) and preliminary LUT/FF utilization; target below 30% LUTs.
+- [ ] M5 (Spring W3): Basys 3 top level, XDC constraints, BRAM wrapper, UART MMIO at `0x10000000`, bitstream and hardware smoke tests.
+- [ ] M6 (Spring W6): compiled C program running on FPGA with deterministic UART output.
+- [ ] M8 (Spring W13): final 25/50 MHz timing and resource verification, 1000-character UART test, system regression and final hardware demonstration.
+
+See [STATUS.md](../STATUS.md) for the full milestone and verification record. The completed tests establish the simulation baseline; FPGA operation has not yet been verified.
