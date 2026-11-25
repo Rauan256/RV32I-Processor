@@ -112,4 +112,4 @@ See [STATUS.md](STATUS.md) for the verification and milestone record.
 
 ## Tools and acknowledgements
 
-Windows with WSL Ubuntu; Python 3; GNU Make 4.4.1; Verilator 5.032; GTKWave 3.3.126; Yosys 0.52; GCC 14.2 and 15.2; Sail 0.16. AI-assisted tools were used during baseline RTL development and documentation.
+Windows with WSL Ubuntu; Python 3; GNU Make 4.4.1; Verilator 5.032; GTKWave 3.3.126; Yosys 0.52; GCC 14.2 and 15.2; Sail 0.16. 
